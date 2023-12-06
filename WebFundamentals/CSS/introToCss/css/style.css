@@ -1,0 +1,48 @@
+*{
+    margin: 0;
+    padding: 0;
+}
+.navbar{
+    background-color: rgb(54, 54, 54);
+    border-radius: 8px;
+    border-top-right-radius: 0px;
+    border-top-left-radius: 0px;
+    margin-bottom: 40px;
+    padding: 10px 20px;
+}
+
+.navbar ul li{
+    color: white;
+    list-style: none;
+}
+.d-flex{
+    display: flex;
+    justify-content: space-evenly;
+}
+#active{
+    font-size: 19px;
+    font-weight: 900;
+    font-family:Georgia, 'Times New Roman', Times, serif;
+}
+.sidebar{
+    width: 25%;
+    height: 400px;
+    background-color: blue;
+    display: inline-block;
+    vertical-align: top;
+}
+.content{
+    width: 70%;
+    height: auto;
+    background-color: red;
+    display: inline-block;
+    padding: ;
+    
+}
+.portfolio{
+    background-color: yellow;
+    width: 30%;
+    height: 400px;
+    display: inline-block;
+    vertical-align: middle;
+}

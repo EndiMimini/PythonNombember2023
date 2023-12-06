@@ -1,0 +1,88 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Making Connections</title>
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-EVSTQN3/azprG1Anm3QDgpJLIm9Nao0Yz1ztcQTwFspd3yD65VohhpuuCOmLASjC" crossorigin="anonymous">
+    <link rel="stylesheet" href="makingconnections.css">
+    <script src="./makingConnections.js" defer></script>
+</head>
+<body>
+    <nav class="d-flex bg-dark text-white p-2 align-items-center justify-content-around">
+        <h2>Profile</h2>
+        <div class="d-flex align-items-center justify-content-evenly p-2 gap-3">
+            <p>Home</p>
+            <p>My Profile</p>
+            <p>About</p>
+            <button class="btn btn-primary">Sign Out</button>
+        </div>
+    </nav>
+    <main>
+        <div class="w-50 m-auto d-flex justify-content-between mt-5">
+            <div>
+                <p id="personName">Jane Doe</p>
+                <div class="d-flex align-items-center gap-1">
+                    <img src="" alt="location">
+                    <p>Seattle</p>
+                </div>
+                <p>My description</p>
+                <div class="d-flex align-items-center gap-1">
+                    <img src="" alt="edit">
+                    <a onclick="editName('personName')">Edit profile</a>
+                </div>
+            </div>
+            <div>
+                <div class="d-flex justify-content-between align-items-center bg-dark text-white">
+                    <p id="requestsNumber">2</p>
+                    <p>Connection Requests</p>
+                </div>
+                <div class="border border-1 p-2">
+                    <div id="person1" class="d-flex align-items-center justify-content-evenly">
+                        <img src="" alt="personi">
+                        <p>John</p>
+                        <img width='20' height="20" src="https://cdn-icons-png.flaticon.com/512/4315/4315445.png" onclick="removePerson('person1')" alt="accept">
+                        <img src="" alt="decline">
+                    </div>
+                    <div id="person2" class="d-flex align-items-center justify-content-evenly">
+                        <img src="" alt="personi">
+                        <p>Todd</p>
+                        <img width='20' height="20" src="https://cdn-icons-png.flaticon.com/512/4315/4315445.png" onclick="removePerson('person2')" alt="accept">
+                        <img src="" alt="decline">
+                    </div>
+
+                </div>
+            </div>
+        </div>
+        <div class="w-50 m-auto d-flex justify-content-between">
+            <div>
+                <p>Jane Doe</p>
+                <p>Lorem ipsum dolor sit amet consectetur adipisicing elit. Nostrum eius velit odit? In id minus labore accusantium laudantium ab voluptate ipsum suscipit cumque odio commodi doloremque nisi quam incidunt quas iure, unde blanditiis beatae officia. Laudantium expedita dicta iste amet.</p>
+            </div>
+            <div>
+                <div class="d-flex justify-content-between align-items-center bg-dark text-white">
+                    <p>2</p>
+                    <p>Connection Requests</p>
+                </div>
+                <div class="border border-1 p-2">
+                    <div class="d-flex align-items-center justify-content-evenly">
+                        <img src="" alt="personi">
+                        <p>Todd</p>
+                        <img src="" alt="accept">
+                        <img src="" alt="decline">
+                    </div>
+                    <div class="d-flex align-items-center justify-content-evenly">
+                        <img src="" alt="personi">
+                        <p>Todd</p>
+                        <img src="" alt="accept">
+                        <img src="" alt="decline">
+                    </div>
+
+                </div>
+            </div>
+        </div>
+
+    </main>
+    
+</body>
+</html>

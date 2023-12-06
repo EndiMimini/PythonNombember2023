@@ -1,0 +1,205 @@
+*{
+    margin: 0;
+    padding: 0;
+}
+
+.d-flex{
+    display: flex;
+}
+.justify-between{
+    justify-content: space-between;
+}
+.align-center{
+    align-items: center;
+}
+.headerMenu{
+    width: 100%;
+    padding: 0 20px;
+    
+}
+
+.headerMenu ul {
+    list-style: none;
+}
+.headerMenu ul li{
+    font-size: 22px;
+    font-weight: bold;
+    padding: 22px;
+    border-right: 1px double silver;
+}
+.gap-30{
+    gap: 0px 30px;
+}
+.searchIcon{
+    width: 20px;
+    height: 20px;
+    object-fit: contain;
+    position: relative;
+    left: 30px;
+}
+.header{
+    background: linear-gradient(180deg, rgba(247,247,245,1) 0%, rgba(224,224,224,1) 100%);
+    border-radius: 8px;
+    border: 0.5px solid gainsboro;
+}
+.searchInput{
+    padding: 10px 20px;
+    border-top-left-radius: 8px;
+    border-bottom-left-radius: 8px;
+    border: none;
+}
+.searchButton{
+    width: 40px;
+    object-fit: contain;
+    border-top-right-radius: 8px;
+    border-bottom-right-radius: 8px;
+    
+}
+.logo{
+    width: auto;
+    height: 70px;
+    object-fit: contain;
+    border-top-left-radius: 8px;
+    border-bottom-left-radius: 8px;
+}
+
+.wrapper{
+    padding: 20px;
+}
+.mainImage{
+    width: 100%;
+    height: auto;
+    object-fit: contain;
+}
+.mt-10{
+    margin-top: 10px;
+}
+.mb-10{
+    margin-bottom: 10px;
+}
+.navbar{
+    background: linear-gradient(180deg, rgba(80,79,81,1) 0%, rgba(55,55,55,1) 100%);
+    padding: 10px;
+    position: relative;
+    bottom: 5px;
+    border-bottom-right-radius: 8px;
+    border-bottom-left-radius: 8px;
+
+    
+}
+.navbar p{
+    color: #7cacca;
+}
+#active{
+    color: white;
+}
+.navbar span{
+    color: silver;
+}
+
+.border-radius{
+    border-radius: 8px;
+}
+.mainInformation{
+    border: 1px solid gainsboro;
+}
+.discoverAdvantage{
+    font-size: 50px;
+    color: #c1c1c1;
+    font-weight: 200;
+   
+}
+.borderRight{
+    border-right: 1px solid gainsboro;
+    height: 70px;
+}
+.p-20{
+    padding: 20px;
+}
+.browseTheStoreButton{
+    background: linear-gradient(180deg, rgba(87,148,192,1) 0%, rgba(65,113,145,1) 100%);
+    padding: 20px 50px;
+    color: white;
+    font-size: 22px;
+    border: none;
+}
+.ml-10{
+    margin-left: 60px;
+}
+.productIcon{
+    width: 30px;
+    height: 30px;
+    object-fit: contain;
+}
+.productButton{
+    background: linear-gradient(180deg, rgba(94,184,246,1) 0%, rgba(91,156,205,1) 100%);
+    width: 100%;
+    color: white;
+    font-weight: 500;
+    border: none;
+    padding: 10px 5px;
+    border-radius: 5px;
+}
+.singleProduct p {
+    color: silver;
+}
+.singleProduct{
+    line-height: 3;
+    padding: 0 10px;
+    border-right: 1px solid gainsboro;
+}
+.singleProduct .singleProductAd{
+    width: 100%;
+    height: auto;
+    object-fit: contain;
+}
+#noBorder{
+    border: none;
+}
+.border-primary{
+    border-top: 1px solid gainsboro;
+    border-bottom-right-radius: 8px;
+    border-bottom-left-radius: 8px;
+}
+.singleProductDescription{
+    width: 80%;
+    line-height: 1.2;
+}
+.services{
+    margin-top: 30px;
+}
+.serviceTitle{
+    border-bottom: 1px solid gainsboro;
+    padding-bottom: 20px;
+}
+.services .singleService ul{
+    list-style: none;
+    line-height: 2;
+    color: rgb(166, 166, 166);
+}
+.firstServiceItem{
+    padding-top: 20px;
+}
+.singleService{
+    width: 15%;
+    padding-bottom: 20px;
+}
+
+.footer{
+    padding: 20px 0px;
+    border-top: 1px solid gainsboro;
+    color: rgb(168, 166, 166);
+}
+
+@media screen and (max-width: 600px) {
+    .navbar{
+        font-size: 8px;
+        gap: 0;
+    }
+    .navbar p{
+        margin-bottom: 0px;
+    }
+  }
+  .goToGoogle{
+    text-decoration: none;
+  }

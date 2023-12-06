@@ -1,0 +1,17 @@
+a{
+    text-decoration: none;
+    font-size: 22px;
+    color: orange;
+    background-color: aqua;
+    padding: 5px 20px;
+    border-radius: 8px;
+    border: 1px solid silver;
+    box-shadow: 3px 3px black;
+}
+a:hover{
+    background-color: orange;
+    color: aqua;
+}
+li{
+    list-style: "😊";
+}
