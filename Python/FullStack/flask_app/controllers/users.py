@@ -1,8 +1,9 @@
 from flask_app import app
 from flask import render_template, redirect, flash, session, request
+from flask_bcrypt import Bcrypt
 
 from flask_app.models.user import User
-
+bcrypt = Bcrypt(app)
 
 @app.route('/')
 def index():
@@ -31,7 +32,7 @@ def register():
         'firstName': request.form['firstName'],
         'lastName': request.form['lastName'],
         'email': request.form['email'],
-        'password': request.form['password']
+        'password': bcrypt.generate_password_hash(request.form['password'])
     }
     session['user_id'] = User.create(data)
     return redirect('/')
@@ -54,9 +55,10 @@ def login():
     if not user:
         flash('This email doesnt exist', 'emailLogin')
         return redirect(request.referrer)
-    if user['password'] != request.form['password']:
+    if not bcrypt.check_password_hash(user['password'], request.form['password']):
         flash('Incorrect password', 'passwordLogin')
         return redirect(request.referrer)
+    
     session['user_id']= user['id']
     return redirect('/')
 

@@ -10,21 +10,31 @@
 <body>
     <nav class="d-flex justify-content-around bg-dark text-white align-items-center">
         <h1>Books</h1>
-        <a class="text-decoration-none text-white" href="/books/new">Add books</a>
+        <a class="text-decoration-none text-white" href="/books">Dashboard</a>
         <a class="text-decoration-none text-white" href="/profile">Profile</a>
         <a class="text-decoration-none text-white" href="/logout">Logout</a>
     </nav>
     <div class="d-flex justify-content-evenly my-4">
-        {% for book in books %}
+      
         <div class="card" style="width: 13rem; height: fit-content;">
             <img src="../static/images/book.jpeg" style="height: 50%;" class="card-img-top" alt="...">
             <div class="card-body">
               <h5 class="card-title">{{book.title}}</h5>
+              <p class="card-text">Description: {{book.description}}</p>
+
               <p class="card-text">Author: {{book.author}}</p>
-              <a href="/book/{{book.id}}" class="btn btn-primary">Read More</a>
+              <p class="card-text">Nr of pages: {{book.nrOfPages}}</p>
+              <p class="card-text">Price: ${{book.price}}</p>
+
+              <p class="card-text">Created by: {{book.firstName}} {{book.lastName}}</p>
+
+              {% if session['user_id'] == book.user_id %}
+              <a href="/book/edit/{{book.id}}" class="btn btn-primary my-1">Edit book</a>
+              <a href="/book/delete/{{book.id}}" class="btn btn-primary my-1">Delete Book</a>
+                {% endif %}
             </div>
           </div>
-          {% endfor  %}
+
     </div>
 
 </body>

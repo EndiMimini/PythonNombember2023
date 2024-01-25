@@ -1,10 +1,96 @@
 from flask_app import app
-from flask import render_template, redirect, flash, session
+from flask import render_template, redirect, flash, session, request
 
+from flask_app.models.book import Book
 
 @app.route('/books')
 def books():
     if 'user_id' in session:
-        return render_template('books.html')
+        return render_template('books.html', books = Book.get_all())
     return redirect('/')
 
+
+@app.route('/books/new')
+def addBook():
+    if 'user_id' in session:
+        return render_template('addBook.html')
+    
+    return redirect('/')
+
+@app.route('/book', methods = ['POST'])
+def createBook():
+    if 'user_id' not in session:
+        return redirect('/')
+    if not Book.validate_book(request.form):
+        return redirect(request.referrer)
+    data = {
+        'title': request.form['title'],
+        'description': request.form['description'],
+        'nrOfPages': request.form['nrOfPages'],
+        'price': request.form['price'],
+        'author': request.form['author'],
+        'user_id': session['user_id']
+    }
+    Book.create(data)
+    return redirect('/')
+
+
+@app.route('/book/<int:id>')
+def viewBook(id):
+    if 'user_id' not in session:
+        return redirect('/')
+    data = {
+        'id': id
+    }
+    book = Book.get_book_by_id(data)
+    if book:
+        return render_template('book.html', book=book)
+    return redirect('/')
+
+@app.route('/book/edit/<int:id>')
+def editBook(id):
+    if 'user_id' not in session:
+        return redirect('/')
+    data = {
+        'id': id
+    }
+    book = Book.get_book_by_id(data)
+    if book and book['user_id'] == session['user_id']:
+        return render_template('editBook.html', book=book)
+    return redirect('/')
+
+
+@app.route('/book/update/<int:id>', methods = ['POST'])
+def updateBook(id):
+    if 'user_id' not in session:
+        return redirect('/')
+    data = {
+        'id': id
+    }
+    book = Book.get_book_by_id(data)
+    if book and book['user_id'] == session['user_id']:
+        if not Book.validate_bookUpdate(request.form):
+            return redirect(request.referrer)
+        data = {
+            'description': request.form['description'],
+            'nrOfPages': request.form['nrOfPages'],
+            'price': request.form['price'],
+            'id': id
+        }
+        Book.update(data)
+        return redirect('/book/'+ str(id))
+    return redirect('/')
+
+
+
+@app.route('/book/delete/<int:id>')
+def deleteBook(id):
+    if 'user_id' not in session:
+        return redirect('/')
+    data = {
+        'id': id,
+    }
+    book = Book.get_book_by_id(data)
+    if book['user_id'] == session['user_id']:
+        Book.delete(data)
+    return redirect('/')
