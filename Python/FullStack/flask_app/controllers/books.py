@@ -40,11 +40,13 @@ def viewBook(id):
     if 'user_id' not in session:
         return redirect('/')
     data = {
-        'id': id
+        'id': id,
+        'book_id': id
     }
     book = Book.get_book_by_id(data)
     if book:
-        return render_template('book.html', book=book)
+        usersWhoLikes = Book.get_users_who_liked_by_book_id(data)
+        return render_template('book.html', book=book, usersWhoLikes= usersWhoLikes)
     return redirect('/')
 
 @app.route('/book/edit/<int:id>')
@@ -92,6 +94,7 @@ def deleteBook(id):
     }
     book = Book.get_book_by_id(data)
     if book['user_id'] == session['user_id']:
+        Book.delete_all_book_comments(data)
         Book.delete(data)
     return redirect('/')
 
@@ -149,3 +152,29 @@ def editComment(id):
     if commenti['user_id'] == session['user_id']:
         return render_template('editComment.html', commenti = commenti)
     return redirect('/')
+
+
+@app.route('/add/like/<int:id>')
+def addLike(id):
+    if 'user_id' not in session:
+        return redirect('/')
+    data = {
+        'book_id': id,
+        'user_id': session['user_id']
+    }
+    usersWhoLikes = Book.get_users_who_liked_by_book_id(data)
+    print(usersWhoLikes)
+    if session['user_id'] not in usersWhoLikes:
+        Book.addLike(data)
+    return redirect(request.referrer)
+
+@app.route('/remove/like/<int:id>')
+def removeLike(id):
+    if 'user_id' not in session:
+        return redirect('/')
+    data = {
+        'book_id': id,
+        'user_id': session['user_id']
+    }
+    Book.removeLike(data)
+    return redirect(request.referrer)

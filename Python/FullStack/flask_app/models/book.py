@@ -42,6 +42,13 @@ class Book:
                 for comment in result2:
                     comments.append(comment)
             result[0]['comments'] = comments
+            query3 = "SELECT users.firstName, users.lastName FROM likes left join users on likes.user_id = users.id where likes.book_id = %(id)s;"
+            result3 = connectToMySQL(cls.db_name).query_db(query3, data)
+            likes = []
+            if result3:
+                for like in result3:
+                    likes.append(like)
+            result[0]['likes'] = likes
             return result[0]
         return False
     
@@ -55,6 +62,11 @@ class Book:
     @classmethod
     def delete(cls, data):
         query = "DELETE FROM books where id = %(id)s;"
+        return connectToMySQL(cls.db_name).query_db(query, data)
+    
+    @classmethod
+    def delete_all_book_comments(cls, data):
+        query ="DELETE FROM comments where comments.book_id = %(id)s;"
         return connectToMySQL(cls.db_name).query_db(query, data)
     
     @classmethod
@@ -78,7 +90,28 @@ class Book:
         query = "DELETE FROM comments where id = %(id)s;"
         return connectToMySQL(cls.db_name).query_db(query, data)
       
-        
+
+    @classmethod
+    def addLike(cls, data):
+        query = "INSERT INTO likes (user_id, book_id) VALUES (%(user_id)s, %(book_id)s);"
+        return connectToMySQL(cls.db_name).query_db(query, data)
+    
+    @classmethod
+    def removeLike(cls, data):
+        query = "DELETE FROM likes WHERE book_id=%(book_id)s AND user_id = %(user_id)s;"
+        return connectToMySQL(cls.db_name).query_db(query, data)
+    
+    @classmethod
+    def get_users_who_liked_by_book_id(cls, data):
+        query ="SELECT user_id FROM likes where book_id = %(book_id)s;"
+        results = connectToMySQL(cls.db_name).query_db(query, data)
+        usersId = []
+        if results:
+            for userId in results:
+                usersId.append(userId['user_id'])
+        return usersId
+                
+
     @staticmethod
     def validate_book(book):
         is_valid = True

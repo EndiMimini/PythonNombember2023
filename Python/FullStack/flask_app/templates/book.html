@@ -7,6 +7,9 @@
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-EVSTQN3/azprG1Anm3QDgpJLIm9Nao0Yz1ztcQTwFspd3yD65VohhpuuCOmLASjC" crossorigin="anonymous">
 
 </head>
+<style>
+
+</style>
 <body>
     <nav class="d-flex justify-content-around bg-dark text-white align-items-center">
         <h1>Books</h1>
@@ -27,6 +30,19 @@
               <p class="card-text">Price: ${{book.price}}</p>
 
               <p class="card-text">Created by: {{book.firstName}} {{book.lastName}}</p>
+              <p onmouseenter="displayLikes()" onmouseleave="hideLikes()">Likes: {{usersWhoLikes|length}}</p>
+                <div>
+                    {% if session['user_id'] in usersWhoLikes %}
+                    <a href="/remove/like/{{book.id}}">Unlike</a>
+                    {% else %}
+                    <a href="/add/like/{{book.id}}">Like</a>
+                    {% endif %}
+                </div>
+                <div class="usersWhoLiked">
+                {% for user in book.likes %}
+                <p>{{user.firstName}} {{user.lastName}}</p>
+                {% endfor %}
+                </div>
 
               {% if session['user_id'] == book.user_id %}
               <a href="/book/edit/{{book.id}}" class="btn btn-primary my-1">Edit book</a>
@@ -68,4 +84,18 @@
     </div>
 
 </body>
+<script>
+    likesDiv = document.querySelector('.usersWhoLiked')
+    likesDiv.style.display = 'none'
+
+    function displayLikes(){
+        likesDiv = document.querySelector('.usersWhoLiked')
+        likesDiv.style.display = 'block'
+    }
+    function hideLikes(){
+        likesDiv = document.querySelector('.usersWhoLiked')
+        likesDiv.style.display = 'none'
+    }
+
+</script>
 </html>
