@@ -29,7 +29,7 @@ def createBook():
         'nrOfPages': request.form['nrOfPages'],
         'price': request.form['price'],
         'author': request.form['author'],
-        'user_id': session['user_id']
+        'user_id': session['user_id'] # id e personit te loguar
     }
     Book.create(data)
     return redirect('/')
@@ -93,4 +93,59 @@ def deleteBook(id):
     book = Book.get_book_by_id(data)
     if book['user_id'] == session['user_id']:
         Book.delete(data)
+    return redirect('/')
+
+@app.route('/add/comment/<int:id>', methods = ['POST'])
+def addComment(id):
+    if 'user_id' not in session:
+        return redirect('/')
+    if len(request.form['comment'])<2:
+        flash('The comment should be at least 2 characters', 'comment')
+    data = {
+        'comment': request.form['comment'],
+        'user_id': session['user_id'],
+        'book_id': id
+    }
+    Book.addComment(data)
+    return redirect(request.referrer)
+
+@app.route('/update/comment/<int:id>', methods = ['POST'])
+def updateComment(id):
+    if 'user_id' not in session:
+        return redirect('/')
+    if len(request.form['comment'])<2:
+        flash('The comment should be at least 2 characters', 'comment')
+    data = {
+        'comment': request.form['comment'],
+        'id': id
+    }
+    komenti = Book.get_comment_by_id(data)
+    if komenti['user_id'] == session['user_id']:
+        Book.update_comment(data)
+    return redirect('/book/'+ str(komenti['book_id']))
+
+@app.route('/delete/comment/<int:id>')
+def deleteComment(id):
+    if 'user_id' not in session:
+        return redirect('/')
+    data = {
+        'id': id
+    }
+    komenti = Book.get_comment_by_id(data)
+    if komenti['user_id'] == session['user_id']:
+        Book.delete_comment(data)
+    return redirect(request.referrer)
+
+
+
+@app.route('/edit/comment/<int:id>')
+def editComment(id):
+    if 'user_id' not in session:
+        return redirect('/')
+    data = {
+        'id': id
+    }
+    commenti = Book.get_comment_by_id(data)
+    if commenti['user_id'] == session['user_id']:
+        return render_template('editComment.html', commenti = commenti)
     return redirect('/')

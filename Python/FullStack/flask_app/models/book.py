@@ -35,9 +35,23 @@ class Book:
         query = "SELECT * FROM books LEFT JOIN users on books.user_id = users.id WHERE books.id = %(id)s;"
         result = connectToMySQL(cls.db_name).query_db(query, data)
         if result:
+            comments = []
+            query2 = "SELECT * FROM comments left join users on comments.user_id = users.id where comments.book_id = %(id)s;"
+            result2 = connectToMySQL(cls.db_name).query_db(query2, data)
+            if result2:
+                for comment in result2:
+                    comments.append(comment)
+            result[0]['comments'] = comments
             return result[0]
         return False
     
+    @classmethod
+    def get_comment_by_id(cls, data):
+        query = "SELECT * FROM comments where comments.id = %(id)s;"
+        results =  connectToMySQL(cls.db_name).query_db(query, data)
+        if results:
+            return results[0]
+        return False
     @classmethod
     def delete(cls, data):
         query = "DELETE FROM books where id = %(id)s;"
@@ -48,6 +62,23 @@ class Book:
         query = "UPDATE books set description = %(description)s, price=%(price)s, nrOfPages = %(nrOfPages)s WHERE books.id = %(id)s;"
         return connectToMySQL(cls.db_name).query_db(query, data)
     
+    
+    # functionality for comments
+    @classmethod
+    def addComment(cls, data):
+        query = "INSERT INTO comments (comment, user_id, book_id) VALUES (%(comment)s, %(user_id)s, %(book_id)s);"
+        return connectToMySQL(cls.db_name).query_db(query, data)
+    @classmethod
+    def update_comment(cls, data):
+        query = "UPDATE comments set comment = %(comment)s where id = %(id)s;"
+        return connectToMySQL(cls.db_name).query_db(query, data)
+    
+    @classmethod
+    def delete_comment(cls, data):
+        query = "DELETE FROM comments where id = %(id)s;"
+        return connectToMySQL(cls.db_name).query_db(query, data)
+      
+        
     @staticmethod
     def validate_book(book):
         is_valid = True
